@@ -48,9 +48,9 @@ app.get('/api/getuser', (req, res) => {
     
 });
 
-// Get a Products
-app.get('/api/getuser/:id', (req, res) => {    
-    mysqlConnection.query('SELECT * FROM products WHERE id = ?', [req.params.id], (err, rows, fields)=> {                   
+// Get a Username
+app.get('/api/getuser/:username', (req, res) => {    
+    mysqlConnection.query('SELECT * FROM users WHERE username = ?', [req.params.username], (err, rows, fields)=> {                   
             if (!err) {          
                return res.json(rows)
             } else {
