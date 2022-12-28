@@ -6,7 +6,7 @@ const { nanoid } = require("nanoid");
 const fs = require('fs');
 var app = express();
 const bodyParser = require('body-parser');
-const PORT = 9000;
+const PORT = 6021;
 
 
 app.use(cors())
@@ -35,10 +35,10 @@ mysqlConnection.connect((err) => {
 
 app.listen(PORT,() => console.log(`Express server listening on: ${PORT}`));
 
-// Get All Products
-app.get('/api/products', (req, res) => {    
-    mysqlConnection.query('SELECT * FROM products', (err, rows, fields)=> {
-        
+// Get All User
+app.get('/api/getuser', (req, res) => {  
+    console.log(nanoid())  
+    mysqlConnection.query('SELECT * FROM users', (err, rows, fields)=> {        
         if (!err) {            
             res.send(rows);
         } else {
@@ -49,7 +49,7 @@ app.get('/api/products', (req, res) => {
 });
 
 // Get a Products
-app.get('/api/products/:id', (req, res) => {    
+app.get('/api/getuser/:id', (req, res) => {    
     mysqlConnection.query('SELECT * FROM products WHERE id = ?', [req.params.id], (err, rows, fields)=> {                   
             if (!err) {          
                return res.json(rows)
@@ -61,46 +61,46 @@ app.get('/api/products/:id', (req, res) => {
     
 });
 
-// Delete a Products
-app.delete('/api/products/:id', (req, res) => {    
-    mysqlConnection.query('DELETE FROM products WHERE id = ?', [req.params.id], (err, rows, fields)=> {                   
-            if (!err) {            
-                res.send({success: true});
-            } else {
-                console.log(err);
-            }   
+// // Delete a Products
+// app.delete('/api/products/:id', (req, res) => {    
+//     mysqlConnection.query('DELETE FROM products WHERE id = ?', [req.params.id], (err, rows, fields)=> {                   
+//             if (!err) {            
+//                 res.send({success: true});
+//             } else {
+//                 console.log(err);
+//             }   
        
-    })
+//     })
     
-});
+// });
 
-// Insert a Products
-app.post('/api/products', (req, res) => {  
-    const note = req.body
+// // Insert a Products
+// app.post('/api/products', (req, res) => {  
+//     const note = req.body
     
-    const data = {id: nanoid(), name: note.name, price: note.price, description: note.description}    
-    mysqlConnection.query('INSERT INTO products SET ?', data, (err, result)=> {                   
-            if (!err) {            
-                res.send({success: true});
-            } else {
-                console.log(err);
-            }   
+//     const data = {id: nanoid(), name: note.name, price: note.price, description: note.description}    
+//     mysqlConnection.query('INSERT INTO products SET ?', data, (err, result)=> {                   
+//             if (!err) {            
+//                 res.send({success: true});
+//             } else {
+//                 console.log(err);
+//             }   
        
-    })
+//     })
     
-});
+// });
 
-// Update a Products
-app.put('/api/products/:id', (req, res) => {  
-    const note = req.body    
-    const data = [note.name, note.price, note.description, req.params.id]    
-    mysqlConnection.query('UPDATE products SET name = ?, price = ?, description = ? WHERE id = ?', data, (err, result)=> {                   
-            if (!err) {            
-                res.send({success: true});
-            } else {
-                console.log(err);
-            }   
+// // Update a Products
+// app.put('/api/products/:id', (req, res) => {  
+//     const note = req.body    
+//     const data = [note.name, note.price, note.description, req.params.id]    
+//     mysqlConnection.query('UPDATE products SET name = ?, price = ?, description = ? WHERE id = ?', data, (err, result)=> {                   
+//             if (!err) {            
+//                 res.send({success: true});
+//             } else {
+//                 console.log(err);
+//             }   
        
-    })
+//     })
     
-});
+// });
